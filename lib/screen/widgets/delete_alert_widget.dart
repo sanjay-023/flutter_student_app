@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:studentapp/db/functions/db_function.dart';
+import 'package:get/get.dart';
 
 void delete(ctx, intex) {
+  final controller = Get.find<StudentController>();
   showDialog(
       context: ctx,
       builder: (ctx1) {
@@ -11,13 +13,14 @@ void delete(ctx, intex) {
           actions: [
             TextButton(
                 onPressed: () {
-                  deleteStudent(intex);
-                  Navigator.of(ctx1).pop();
+                  controller.deleteStudent(intex);
+
+                  Get.back();
                 },
                 child: const Text('Yes')),
             TextButton(
                 onPressed: () {
-                  Navigator.of(ctx1).pop();
+                  Get.back();
                 },
                 child: const Text('No'))
           ],

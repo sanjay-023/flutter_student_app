@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:get/instance_manager.dart';
 import 'package:studentapp/db/functions/db_function.dart';
-import 'package:studentapp/db/model/data_model.dart';
 
 import 'package:studentapp/screen/add_student_screen.dart';
 import 'package:studentapp/screen/search_screen.dart';
@@ -19,7 +18,9 @@ class ScreenHome extends StatefulWidget {
 class _ScreenHomeState extends State<ScreenHome> {
   @override
   Widget build(BuildContext context) {
-    getAllStudents();
+    StudentController controller = Get.put(StudentController());
+
+    controller.getAllStudents();
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -36,7 +37,7 @@ class _ScreenHomeState extends State<ScreenHome> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-            return AddStudentScreen();
+            return const AddStudentScreen();
           }));
         },
         child: const Icon(

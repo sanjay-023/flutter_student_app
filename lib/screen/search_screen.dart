@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:studentapp/db/functions/db_function.dart';
 import 'package:studentapp/screen/student_detail_screen.dart';
 import 'package:studentapp/screen/widgets/image_profile.dart';
 
 class SearchScreen extends StatelessWidget {
-  const SearchScreen({Key? key}) : super(key: key);
-  // final controller = Get.find<StudentDataController>();
+  SearchScreen({Key? key}) : super(key: key);
+  final controller = Get.find<StudentController>();
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class SearchScreen extends StatelessWidget {
                     color: const Color.fromARGB(255, 251, 213, 156),
                   ),
                   child: TextField(
-                    onChanged: (value) => getSearchResult(value),
+                    onChanged: (value) => controller.getSearchResult(value),
                     decoration: const InputDecoration(
                       contentPadding: EdgeInsets.all(10),
                       hintText: 'Search',
@@ -37,7 +39,7 @@ class SearchScreen extends StatelessWidget {
               ),
               Obx(
                 () {
-                  if (searchData.isEmpty) {
+                  if (controller.searchData.isEmpty) {
                     return const Center(
                       child: SizedBox(
                         child: Text('No Data Found'),
@@ -47,7 +49,7 @@ class SearchScreen extends StatelessWidget {
                     return Expanded(
                         child: ListView.separated(
                             itemBuilder: (context, intex) {
-                              final data = searchData[intex];
+                              final data = controller.searchData[intex];
                               return ListTile(
                                 leading: CommonCircleAvatar(
                                     radius: 40,
@@ -72,7 +74,7 @@ class SearchScreen extends StatelessWidget {
                             separatorBuilder: (context, intex) {
                               return const Divider();
                             },
-                            itemCount: searchData.length));
+                            itemCount: controller.searchData.length));
                   }
                 },
               )

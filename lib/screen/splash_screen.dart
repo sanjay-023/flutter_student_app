@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studentapp/screen/home_screen.dart';
 import 'package:studentapp/screen/screen_login.dart';
@@ -53,9 +55,10 @@ class _ScreenSplashState extends State<ScreenSplash> {
     if (_userLoggedIn == null || _userLoggedIn == false) {
       gotologin();
     } else {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) {
-        return const ScreenHome();
-      }));
+      // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) {
+      //   return const ScreenHome();
+      // }));
+      Get.off(const ScreenHome());
     }
   }
 }

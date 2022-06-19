@@ -7,57 +7,63 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:studentapp/db/model/data_model.dart';
 
-ValueNotifier<List<StudentModel>> studentListNotifier = ValueNotifier([]);
-RxList<StudentModel> searchData = <StudentModel>[].obs;
-void addStudent(StudentModel value) async {
-  final studentDb = await Hive.openBox<StudentModel>('student_db');
-  studentDb.add(value);
-  studentListNotifier.value.add(value);
-  studentListNotifier.notifyListeners();
-}
+class StudentController extends GetxController {
+  ValueNotifier<List<StudentModel>> studentListNotifier = ValueNotifier([]);
+  RxList<StudentModel> searchData = <StudentModel>[].obs;
+  RxList<StudentModel> studentDataController = <StudentModel>[].obs;
+  void addStudent(StudentModel value) async {
+    final studentDb = await Hive.openBox<StudentModel>('student_db');
+    studentDb.add(value);
+    // studentListNotifier.value.add(value);
+    studentDataController.add(value);
 
-void getAllStudents() async {
-  final studentDb = await Hive.openBox<StudentModel>('student_db');
-  studentListNotifier.value.clear();
-  studentListNotifier.value.addAll(studentDb.values);
-  studentListNotifier.notifyListeners();
-}
+    // studentListNotifier.notifyListeners();
+  }
 
-void deleteStudent(int intex) async {
-  final studentDb = await Hive.openBox<StudentModel>('student_db');
+  void getAllStudents() async {
+    final studentDb = await Hive.openBox<StudentModel>('student_db');
+    studentListNotifier.value.clear();
+    studentDataController.clear();
 
-  studentDb.deleteAt(intex);
-  getAllStudents();
-}
+    // studentListNotifier.value.addAll(studentDb.values);
+    studentDataController.addAll(studentDb.values);
+    //studentListNotifier.notifyListeners();
+  }
 
-void editStudent(int intex, StudentModel value) async {
-  final studentDb = await Hive.openBox<StudentModel>('student_db');
-  studentDb.putAt(intex, value);
-  getAllStudents();
-}
+  void deleteStudent(int intex) async {
+    final studentDb = await Hive.openBox<StudentModel>('student_db');
 
-void getSearchResult(String value) {
-  searchData.clear();
+    studentDb.deleteAt(intex);
+    getAllStudents();
+  }
 
-  for (var intex in studentListNotifier.value) {
-    if (intex.name.toString().toLowerCase().contains(
-          value.toLowerCase(),
-        )) {
-      StudentModel data = StudentModel(
-          name: intex.name,
-          batch: intex.batch,
-          phone: intex.phone,
-          email: intex.email,
-          img: intex.img);
-      searchData.add(data);
+  void editStudent(int intex, StudentModel value) async {
+    final studentDb = await Hive.openBox<StudentModel>('student_db');
+    studentDb.putAt(intex, value);
+    getAllStudents();
+  }
+
+  void getSearchResult(String value) {
+    searchData.clear();
+
+    for (var intex in studentListNotifier.value) {
+      if (intex.name.toString().toLowerCase().contains(
+            value.toLowerCase(),
+          )) {
+        StudentModel data = StudentModel(
+            name: intex.name,
+            batch: intex.batch,
+            phone: intex.phone,
+            email: intex.email,
+            img: intex.img);
+        searchData.add(data);
+      }
     }
   }
-}
 
-String img = '';
+  String img = '';
 // File? imag;
 
-class getImage extends GetxController {
   takePhoto(ImageSource source) async {
     final pickImage = await ImagePicker().pickImage(source: source);
     if (pickImage == null) {

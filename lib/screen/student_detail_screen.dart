@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/instance_manager.dart';
 
 import 'package:studentapp/screen/edit_student_screen.dart';
 
 import 'package:studentapp/screen/widgets/image_profile.dart';
+import 'package:get/get.dart';
 
 class StudentDetailScreen extends StatelessWidget {
   const StudentDetailScreen(
@@ -75,7 +77,7 @@ class StudentDetailScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         width: double.infinity,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -102,7 +104,7 @@ class StudentDetailScreen extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Container(
+                      SizedBox(
                         width: double.infinity,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -129,7 +131,7 @@ class StudentDetailScreen extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Container(
+                      SizedBox(
                         width: double.infinity,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -156,7 +158,7 @@ class StudentDetailScreen extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Container(
+                      SizedBox(
                         width: double.infinity,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -186,17 +188,24 @@ class StudentDetailScreen extends StatelessWidget {
                       ElevatedButton.icon(
                           style: const ButtonStyle(),
                           onPressed: () {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (ctx) {
-                              return EditStudentScreen(
+                            // Navigator.of(context)
+                            //     .push(MaterialPageRoute(builder: (ctx) {
+                            //   return EditStudentScreen(
+                            //     name: name,
+                            //     batch: batch,
+                            //     phone: phone,
+                            //     email: email,
+                            //     intex2: intex1,
+                            //     img: img,
+                            //   );
+                            // }));
+                            Get.to(EditStudentScreen(
                                 name: name,
                                 batch: batch,
                                 phone: phone,
                                 email: email,
                                 intex2: intex1,
-                                img: img,
-                              );
-                            }));
+                                img: img));
                           },
                           icon: const Icon(Icons.edit),
                           label: const Text('Edit'))

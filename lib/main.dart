@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:studentapp/db/model/data_model.dart';
 
@@ -20,9 +21,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       theme: ThemeData(primarySwatch: Colors.orange),
       home: const ScreenSplash(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

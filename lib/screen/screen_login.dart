@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../main.dart';
 import 'home_screen.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -124,16 +125,20 @@ class LoginScreen extends StatelessWidget {
       final _sharedprfns = await SharedPreferences.getInstance();
       await _sharedprfns.setBool(SAVE_KEY, true);
 
-      Navigator.of(ctx).pushReplacement(MaterialPageRoute(builder: (ctx) {
-        return const ScreenHome();
-      }));
+      Get.to(const ScreenHome());
     } else {
       _usernamecontroller.clear();
       _passwordcontroller.clear();
-      ScaffoldMessenger.of(ctx).showSnackBar(
-        const SnackBar(
-          content: Text('Username or Password does not match'),
-          backgroundColor: Colors.red,
+
+      Get.snackbar(
+        "",
+        "Username or password does not match",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: const Color.fromARGB(255, 232, 22, 7),
+        colorText: Colors.white,
+        messageText: const Text(
+          "Username or password does not match",
+          style: TextStyle(color: Colors.white),
         ),
       );
     }

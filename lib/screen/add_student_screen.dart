@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/instance_manager.dart';
 import 'package:studentapp/db/functions/db_function.dart';
 import 'package:studentapp/db/model/data_model.dart';
 import 'package:studentapp/screen/widgets/botton_sheet.dart';
@@ -150,6 +151,7 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
   }
 
   void onAddStudenButtonClicked(BuildContext context) {
+    final controller = Get.find<StudentController>();
     final _nametext = _namecontroller.text;
     final _batchtext = _batchcontroller.text;
     final _phonetext = _phonecontroller.text;
@@ -179,8 +181,8 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
         batch: _batchtext,
         phone: _phonetext,
         email: _emailtext,
-        img: img);
+        img: controller.img);
 
-    addStudent(_student);
+    controller.addStudent(_student);
   }
 }

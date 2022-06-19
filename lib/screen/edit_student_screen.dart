@@ -3,6 +3,7 @@ import 'package:studentapp/db/functions/db_function.dart';
 import 'package:studentapp/db/model/data_model.dart';
 import 'package:studentapp/screen/home_screen.dart';
 import 'package:studentapp/screen/widgets/image_profile.dart';
+import 'package:get/get.dart';
 
 class EditStudentScreen extends StatelessWidget {
   EditStudentScreen(
@@ -27,6 +28,7 @@ class EditStudentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<StudentController>();
     _nameController.text = name;
     _batchConntroller.text = batch;
     _phoneController.text = phone;
@@ -52,7 +54,7 @@ class EditStudentScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         CommonCircleAvatar(
-                            radius: 45, img: img, size: Size(60, 60)),
+                            radius: 45, img: img, size: const Size(60, 60)),
                         const SizedBox(
                           height: 20,
                         ),
@@ -85,7 +87,7 @@ class EditStudentScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         width: double.infinity,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -109,7 +111,7 @@ class EditStudentScreen extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Container(
+                      SizedBox(
                         width: double.infinity,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -133,7 +135,7 @@ class EditStudentScreen extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Container(
+                      SizedBox(
                         width: double.infinity,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -157,7 +159,7 @@ class EditStudentScreen extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Container(
+                      SizedBox(
                         width: double.infinity,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -185,7 +187,7 @@ class EditStudentScreen extends StatelessWidget {
                           onPressed: () {
                             onSaveButtonClicked(context);
                           },
-                          child: Text('Save'))
+                          child: const Text('Save'))
                     ],
                   ),
                 )
@@ -196,6 +198,7 @@ class EditStudentScreen extends StatelessWidget {
   }
 
   void onSaveButtonClicked(BuildContext context) {
+    final controller = Get.find<StudentController>();
     final _nameText = _nameController.text;
     final _batchText = _batchConntroller.text;
     final _phoneText = _phoneController.text;
@@ -208,9 +211,8 @@ class EditStudentScreen extends StatelessWidget {
         email: _emailText,
         img: img);
 
-    editStudent(intex2, _editStudent);
-    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (ctx) {
-      return const ScreenHome();
-    }), (route) => false);
+    controller.editStudent(intex2, _editStudent);
+
+    Get.offAll(const ScreenHome());
   }
 }

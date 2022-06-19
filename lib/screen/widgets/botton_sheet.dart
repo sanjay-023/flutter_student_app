@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:studentapp/db/functions/db_function.dart';
+import 'package:get/get.dart';
 
 Widget CusBottomSheet(context) {
-  return Container(
+  final controller = Get.find<StudentController>();
+  return SizedBox(
     height: 150,
     child: Column(
       children: [
@@ -21,8 +23,9 @@ Widget CusBottomSheet(context) {
               children: [
                 IconButton(
                   onPressed: () {
-                    getImage().takePhoto(ImageSource.camera);
-                    Navigator.of(context).pop();
+                    controller.takePhoto(ImageSource.camera);
+                    // Navigator.of(context).pop();
+                    Get.back();
                   },
                   icon: const Icon(Icons.camera),
                   color: Colors.orange,
@@ -37,8 +40,9 @@ Widget CusBottomSheet(context) {
               children: [
                 IconButton(
                   onPressed: () {
-                    getImage().takePhoto(ImageSource.gallery);
-                    Navigator.of(context).pop();
+                    controller.takePhoto(ImageSource.gallery);
+                    // Navigator.of(context).pop();
+                    Get.back();
                   },
                   icon: const Icon(Icons.image),
                   color: Colors.orange,
