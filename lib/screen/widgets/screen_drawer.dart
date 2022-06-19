@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studentapp/screen/screen_login.dart';
+import 'package:get/get.dart';
 
 import '../add_student_screen.dart';
 import '../home_screen.dart';
@@ -51,9 +52,7 @@ class ScreenDrawer extends StatelessWidget {
               size: 30,
             ),
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-                return const ScreenHome();
-              }));
+              Get.to(const ScreenHome());
             },
           ),
           ListTile(
@@ -66,9 +65,7 @@ class ScreenDrawer extends StatelessWidget {
               size: 30,
             ),
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-                return AddStudentScreen();
-              }));
+              Get.to(const AddStudentScreen());
             },
           ),
           ListTile(
@@ -83,11 +80,7 @@ class ScreenDrawer extends StatelessWidget {
             onTap: () async {
               final _sharedprfns = await SharedPreferences.getInstance();
               _sharedprfns.clear();
-
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (ctx) {
-                return LoginScreen();
-              }), (route) => false);
+              Get.offAll(LoginScreen());
             },
           )
         ],

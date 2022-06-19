@@ -14,20 +14,13 @@ class StudentController extends GetxController {
   void addStudent(StudentModel value) async {
     final studentDb = await Hive.openBox<StudentModel>('student_db');
     studentDb.add(value);
-    // studentListNotifier.value.add(value);
     studentDataController.add(value);
-
-    // studentListNotifier.notifyListeners();
   }
 
   void getAllStudents() async {
     final studentDb = await Hive.openBox<StudentModel>('student_db');
-    studentListNotifier.value.clear();
     studentDataController.clear();
-
-    // studentListNotifier.value.addAll(studentDb.values);
     studentDataController.addAll(studentDb.values);
-    //studentListNotifier.notifyListeners();
   }
 
   void deleteStudent(int intex) async {
@@ -62,14 +55,12 @@ class StudentController extends GetxController {
   }
 
   String img = '';
-// File? imag;
 
   takePhoto(ImageSource source) async {
     final pickImage = await ImagePicker().pickImage(source: source);
     if (pickImage == null) {
       return;
     } else {
-      // imag = File(pickImage.path);
       update();
       final bytes = File(pickImage.path).readAsBytesSync();
       img = base64Encode(bytes);

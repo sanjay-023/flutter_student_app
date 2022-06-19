@@ -24,7 +24,6 @@ Widget CusBottomSheet(context) {
                 IconButton(
                   onPressed: () {
                     controller.takePhoto(ImageSource.camera);
-                    // Navigator.of(context).pop();
                     Get.back();
                   },
                   icon: const Icon(Icons.camera),
@@ -41,7 +40,6 @@ Widget CusBottomSheet(context) {
                 IconButton(
                   onPressed: () {
                     controller.takePhoto(ImageSource.gallery);
-                    // Navigator.of(context).pop();
                     Get.back();
                   },
                   icon: const Icon(Icons.image),
